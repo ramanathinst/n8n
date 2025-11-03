@@ -9,10 +9,9 @@ import { toast } from "sonner";
 const Page = () => {
 
   const trpc = useTRPC();
-  const { data } = useQuery(trpc.getWorkflows.queryOptions());
-  const create = useMutation(trpc.createWorkflow.mutationOptions({
+   const testAi = useMutation(trpc.testAi.mutationOptions({
     onSuccess: () => {
-      toast.success("workflow created!")
+      toast.success("Ai executed!")
     },
     onError: (error) => {
       toast.error(error.message)
@@ -21,10 +20,9 @@ const Page = () => {
   
   return(
     <div className="flex flex-col items-center justify-center min-h-screen">
-        {JSON.stringify(data)}
-        <div className="flex flex-col gap-5">
-            <Button onClick={() => create.mutate()}>
-                create Workflow
+         <div className="flex flex-col gap-5">
+            <Button disabled={testAi.isPending} onClick={() => testAi.mutate()}>
+                Test Ai
             </Button>
             <Logout/>
         </div>
