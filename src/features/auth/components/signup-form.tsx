@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import Image from "next/image";
 
 
 const signupSchema = z
@@ -70,9 +71,9 @@ export const SignupForm = () => {
     return(
         <div className="flex flex-col gap-6">
             <Card>
-                <CardHeader>
+                 <CardHeader className="flex items-center flex-col">
                     <CardTitle> Wilcome to website!</CardTitle>
-                    <CardDescription>Login to continue!</CardDescription>
+                    <CardDescription>Create an account to get started!</CardDescription>
                 </CardHeader>
 
                 <CardContent>
@@ -86,6 +87,7 @@ export const SignupForm = () => {
                                         disabled={isPending}
                                         className="w-full"
                                         >
+                                            <Image src={"/logos/github.svg"} width={20} height={20} alt="GitHub" />
                                             Continue to GitHub
                                     </Button>
 
@@ -95,6 +97,7 @@ export const SignupForm = () => {
                                         disabled={isPending}
                                         className="w-full"
                                         >
+                                            <Image src={"/logos/google.svg"} width={20} height={20} alt="Google" />
                                             Continue to Google
                                     </Button>
                                 </div>
