@@ -15,8 +15,13 @@ export const appRouter = createTRPCRouter({
         name: "helloInngest@gmail.com"
       }
     })
-
     return {success: true, message: "Created workflow"}
+  }),
+
+  testAi: protectedProcedure.mutation(async() => {
+    await inngest.send({
+      name: "ai/execute"
+    })
   })
 
 });
