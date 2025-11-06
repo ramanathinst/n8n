@@ -5,7 +5,9 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupConte
 import Image from "next/image"
 import { CreditCardIcon, FolderOpenIcon, HistoryIcon, KeyRoundIcon, LogOutIcon, StarIcon } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
-import { Button } from "./ui/button"
+import { authClient } from "@/lib/auth-client"
+import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription"
+import { toast } from "sonner"
 
 const menuItems = [
     {
@@ -36,6 +38,7 @@ const menuItems = [
 export const AppSidebar = () => {
     const pathname = usePathname();
     const router = useRouter();
+    const { hasActiveSubscription, isLoading } = useHasActiveSubscription();
     return(
         <Sidebar collapsible="icon">
             <SidebarHeader>
@@ -75,22 +78,31 @@ export const AppSidebar = () => {
 
             <SidebarFooter>
                 <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton tooltip={"Upgrade to pro"} onClick={() => {}}>
-                            <StarIcon size={4}/>
-                            Upgrade to pro
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
+                    {!hasActiveSubscription && !isLoading && (
+                        <SidebarMenuItem>
+                            <SidebarMenuButton tooltip={"Upgrade to pro"} onClick={() => authClient.checkout({ slug: "Pro"})}>
+                                <StarIcon size={4}/>
+                                Upgrade to pro
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    )}
 
                     <SidebarMenuItem>
-                        <SidebarMenuButton tooltip={"Billing Portal"} onClick={() => {}}>
+                        <SidebarMenuButton tooltip={"Billing Portal"} onClick={async() => authClient.customer.portal()}>
                             <CreditCardIcon size={4} />
                             Billing Portal
                         </SidebarMenuButton>
                     </SidebarMenuItem>
 
                     <SidebarMenuItem>
-                        <SidebarMenuButton tooltip={"Logout"} onClick={() => {}}>
+                        <SidebarMenuButton tooltip={"Logout"} onClick={() => authClient.signOut({
+                            fetchOptions: {
+                                onSuccess: () => {
+                                    toast.success("Logout Successfull!")
+                                    router.push("/login")
+                                }
+                            }
+                        })}>
                             <LogOutIcon size={4} />
                             Logout
                         </SidebarMenuButton>
