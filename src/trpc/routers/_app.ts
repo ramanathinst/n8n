@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { baseProcedure, createTRPCRouter, protectedProcedure } from '../init';
+import { baseProcedure, createTRPCRouter, premiumProcedure, protectedProcedure } from '../init';
 import prisma from '@/lib/db';
 import { inngest } from '@/inngest/client';
 
@@ -18,7 +18,7 @@ export const appRouter = createTRPCRouter({
     return {success: true, message: "Created workflow"}
   }),
 
-  testAi: protectedProcedure.mutation(async() => {
+  testAi: premiumProcedure.mutation(async() => {
     await inngest.send({
       name: "ai/execute"
     })

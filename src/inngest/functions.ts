@@ -16,7 +16,7 @@ export const execute = inngest.createFunction(
     const { steps }= await step.ai.wrap("Gemini-generative-text",generateText,{
       model: google("gemini-2.5-flash"),
       system: "you are helpful assistent",
-      prompt: "how to learn machine learning?",
+      prompt: "what is 5+8?",
       experimental_telemetry: {
         isEnabled: true,
         recordInputs: true,
