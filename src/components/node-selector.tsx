@@ -34,18 +34,18 @@ const executionNodes: NodeTypeOption[] = [
     }
 ]
 
-
 interface NodeSelectorProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     children: React.ReactNode;
 }
 
-export function NodeSelector({ 
+export const NodeSelector = ({
     open,
     onOpenChange,
     children
-}: NodeSelectorProps) {
+}: NodeSelectorProps) => {
+
     const { setNodes, getNodes, screenToFlowPosition } = useReactFlow();
     const handleNodeSelect = useCallback((selection: NodeTypeOption) => {
         if(selection.type === NodeType.MANUAL_TRIGGER) {
@@ -89,11 +89,10 @@ export function NodeSelector({
         onOpenChange,
         screenToFlowPosition
     ])
-
-
-    return(
+    
+return(
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetTrigger> {children} </SheetTrigger>
+            <SheetTrigger asChild>{children}</SheetTrigger>
             <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
                 <SheetHeader>
                     <SheetTitle>
@@ -103,7 +102,8 @@ export function NodeSelector({
                         A trigger is a step that starts your workflow.
                     </SheetDescription>
                 </SheetHeader>
-                <div>
+            <Separator />
+            <div>
                     {triggerNodes.map((nodeType) => {
                         const Icon = nodeType.icon;
 
@@ -165,4 +165,4 @@ export function NodeSelector({
             </SheetContent>
         </Sheet>
     )
-}   
+}
