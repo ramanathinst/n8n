@@ -102,9 +102,9 @@ export const LoginForm = () => {
                                             render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Email</FormLabel>
-                                                <FormControl>
-                                                <Input placeholder="you@example.com" {...field} />
-                                                </FormControl>
+                                                    <FormControl>
+                                                        <Input placeholder="you@example.com" {...field} />
+                                                    </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                             )}
@@ -117,10 +117,10 @@ export const LoginForm = () => {
                                             render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Password</FormLabel>
-                                                <FormControl>
-                                                <Input type="password" placeholder="********" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
+                                                    <FormControl>
+                                                        <Input type="password" placeholder="********" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
                                             </FormItem>
                                             )}
                                         />

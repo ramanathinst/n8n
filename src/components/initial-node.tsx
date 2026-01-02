@@ -7,7 +7,7 @@ import type { NodeProps } from "@xyflow/react"
 import { WorkflowNode } from "./workflow-node"
 import { NodeSelector } from "./node-selector"
 
-export const InitailNode = memo((props: NodeProps) => {
+export const InitialNode = memo((props: NodeProps) => {
         const [selectorOpen, setSelectorOpen ] = useState(false)
     return (
         <NodeSelector open={selectorOpen} onOpenChange={setSelectorOpen}>
