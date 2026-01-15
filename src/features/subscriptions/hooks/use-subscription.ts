@@ -18,7 +18,7 @@ export const useHasActiveSubscription = () => {
     return {
         hasActiveSubscription,
         isLoading,
-        ...rest,
+        ...rest, 
         subscription: customerState?.activeSubscriptions[0]
     }
 }
