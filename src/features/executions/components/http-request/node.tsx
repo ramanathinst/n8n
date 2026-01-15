@@ -4,7 +4,7 @@ import { useReactFlow, type Node, type NodeProps } from "@xyflow/react"
 import { GlobeIcon } from "lucide-react"
 import { memo, useState } from "react"
 import { BaseExecutionNode } from "../base-execution-node"
-import { FormValues, HttpRequestDialog } from "./dialog"
+import { type FormValues, HttpRequestDialog } from "./dialog"
 
 type HttpRequestNodeData = {
     endpoint?: string;

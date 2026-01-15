@@ -26,7 +26,7 @@ export const BaseTriggerNode = memo(({
     name,
     description,
     children,
-    status = "initial",
+    status,
     onSettings,
     onDoubleClick
 }: BaseTriggerNodeProps) => {

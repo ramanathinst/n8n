@@ -20,8 +20,8 @@ export const auth = betterAuth({
                 checkout({
                     products: [
                         {
-                            productId: "3b42aedb-b54e-4e2a-8bd1-7fe82700b18a",
-                            slug: "Pro" // Custom slug for easy reference in Checkout URL, e.g. /checkout/Pro
+                            productId: "7efbc8f1-e42c-4d87-85a6-1a32b93d0159",
+                            slug: "n8n" // Custom slug for easy reference in Checkout URL, e.g. /checkout/Pro
                         }
                     ],
                     successUrl: process.env.POLAR_SUCCESS_URL,

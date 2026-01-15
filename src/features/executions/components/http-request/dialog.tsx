@@ -100,7 +100,7 @@ export const HttpRequestDialog = ({
     // Submit handler
     //
     const handleSubmit = (values: FormValues) => {
-        onSubmit(values);
+        onSubmit(values)
         onOpenChange(false);
     };
 

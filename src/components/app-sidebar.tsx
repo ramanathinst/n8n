@@ -45,7 +45,7 @@ export const AppSidebar = () => {
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild className="gap-x-4 px-4 h-10">
                         <Link href={"/"} prefetch>
-                            <Image src={"/logos/logo.svg"} height={30} width={30} alt="Nodebase" />
+                            <Image src={"/logos/logo.svg"} className="size-4" height={30} width={30} alt="n8n" />
                             <span className="font-semibold text-sm">N8N</span>
                         </Link>
                     </SidebarMenuButton>
@@ -80,7 +80,7 @@ export const AppSidebar = () => {
                 <SidebarMenu>
                     {!hasActiveSubscription && !isLoading && (
                         <SidebarMenuItem>
-                            <SidebarMenuButton tooltip={"Upgrade to pro"} onClick={() => authClient.checkout({ slug: "Pro"})}>
+                            <SidebarMenuButton tooltip={"Upgrade to pro"} onClick={() => authClient.checkout({ slug: "n8n"})}>
                                 <StarIcon size={4}/>
                                 Upgrade to pro
                             </SidebarMenuButton>
