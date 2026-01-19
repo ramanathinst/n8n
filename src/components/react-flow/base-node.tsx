@@ -27,7 +27,7 @@ export function BaseNode({ className,status, ...props }: BaseNodeProps) {
         <CheckCircle2Icon  className="size-2 absolute right-0.5 bottom-0.5 stroke-3 text-green-700"/>
       )}
       {status === "loading" && (
-        <Loader2Icon  className="size-2 animate-spin absolute -right-0.5 -bottom-0.5 stroke-3 text-green-700"/>
+        <Loader2Icon  className="size-2 animate-spin absolute -right-0.5 -bottom-0.5 stroke-3 text-blue-700"/>
       )}
     </div>
   );
