@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "ngrok:dev": "ngrok http --url=conscionable-rhett-unendeared.ngrok-free.dev 3000",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
@@ -93,6 +94,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
     "prisma": "^7.2.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.6",
