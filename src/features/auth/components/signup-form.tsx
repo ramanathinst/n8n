@@ -87,7 +87,7 @@ export const SignupForm = () => {
                                         disabled={isPending}
                                         className="w-full"
                                         >
-                                            <Image src={"/logos/github.svg"} width={20} height={20} alt="GitHub" />
+                                            <Image src={"/logos/github.svg"} className="size-5" width={20} height={20} alt="GitHub" />
                                             Continue to GitHub
                                     </Button>
 
@@ -97,7 +97,7 @@ export const SignupForm = () => {
                                         disabled={isPending}
                                         className="w-full"
                                         >
-                                            <Image src={"/logos/google.svg"} width={20} height={20} alt="Google" />
+                                            <Image src={"/logos/google.svg"} className="size-5"  width={20} height={20} alt="Google" />
                                             Continue to Google
                                     </Button>
                                 </div>

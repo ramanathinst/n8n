@@ -20,17 +20,24 @@ const triggerNodes: NodeTypeOption[] = [
     {
         type: NodeType.MANUAL_TRIGGER,
         label: "Trigger manual",
-        description: "Runs the flow on clicking a button. Good for getting starts quickly",
+        description: "Runs the flow on clicking a button. Good for getting started quickly",
         icon : MousePointerIcon
     }
 ]
-
 const executionNodes: NodeTypeOption[] = [
     {
         type: NodeType.HTTP_REQUEST,
         label: "HTTP Request",
         description: "Make an HTTP request",
         icon : GlobeIcon
+    }
+]
+const googleFormNodes: NodeTypeOption[] = [
+    {
+        type: NodeType.GOOGLE_FORM_TRIGGER,
+        label: "Google Form",
+        description: "Run the flow when a google form is submitted.",
+        icon : "/logos/googleform.svg"
     }
 ]
 
@@ -105,6 +112,35 @@ return(
             <Separator />
             <div>
                     {triggerNodes.map((nodeType) => {
+                        const Icon = nodeType.icon;
+
+                        return(
+                            <div key={nodeType.type}
+                                className="w-full justify-start h-auto py-5 px-4 rounded-none cursor-pointer border-l-2 border-transparent hover:border-l-primary"
+                                onClick={() => handleNodeSelect(nodeType)}
+                            >
+                                <div className="flex items-center overflow-hidden gap-6 w-full">
+                                    {typeof Icon === "string" ? (
+                                        <img 
+                                            src={Icon}
+                                            alt={nodeType.label}
+                                            className="size-5 object-contain rounded-sm"
+                                        />
+                                    ): (
+                                        <Icon className="size-4" />
+                                    )}
+                                    <div className="flex items-start flex-col text-left">
+                                        <span className="text-sm font-medium">{nodeType.label} </span>
+                                        <span className="text-xs text-muted-foreground">{nodeType.description} </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        )
+                    })}
+                </div>
+                <div>
+                    {googleFormNodes.map((nodeType) => {
                         const Icon = nodeType.icon;
 
                         return(
