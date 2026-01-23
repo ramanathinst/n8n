@@ -22,6 +22,18 @@ const triggerNodes: NodeTypeOption[] = [
         label: "Trigger manual",
         description: "Runs the flow on clicking a button. Good for getting started quickly",
         icon : MousePointerIcon
+    },
+    {
+        type: NodeType.GOOGLE_FORM_TRIGGER,
+        label: "Google Form",
+        description: "Run the flow when a google form is submitted.",
+        icon : "/logos/googleform.svg"
+    },
+    {
+        type: NodeType.STRIPE_TRIGGER,
+        label: "Stripe",
+        description: "Run the flow when event is captured.",
+        icon : "/logos/stripe.svg"
     }
 ]
 const executionNodes: NodeTypeOption[] = [
@@ -30,23 +42,24 @@ const executionNodes: NodeTypeOption[] = [
         label: "HTTP Request",
         description: "Make an HTTP request",
         icon : GlobeIcon
-    }
-]
-const googleFormNodes: NodeTypeOption[] = [
+    },
     {
-        type: NodeType.GOOGLE_FORM_TRIGGER,
-        label: "Google Form",
-        description: "Run the flow when a google form is submitted.",
-        icon : "/logos/googleform.svg"
-    }
-]
-
-const stripeNodes: NodeTypeOption[] = [
+        type: NodeType.GEMINI,
+        label: "Gemini",
+        description: "Run a google gemini to generate text",
+        icon : "/logos/gemini.svg"
+    },
     {
-        type: NodeType.STRIPE_TRIGGER,
-        label: "Stripe",
-        description: "Run the flow when event is captured.",
-        icon : "/logos/stripe.svg"
+        type: NodeType.OPENAI,
+        label: "Openai",
+        description: "Run a Openai to generate text",
+        icon : "/logos/openai.svg"
+    },
+    {
+        type: NodeType.ANTHROPIC,
+        label: "Anthropic",
+        description: "Run a Anthropic to generate text",
+        icon : "/logos/anthropic.svg"
     }
 ]
 
@@ -134,64 +147,6 @@ return(
                                             src={Icon}
                                             alt={nodeType.label}
                                             className="size-5 object-contain rounded-sm"
-                                        />
-                                    ): (
-                                        <Icon className="size-4" />
-                                    )}
-                                    <div className="flex items-start flex-col text-left">
-                                        <span className="text-sm font-medium">{nodeType.label} </span>
-                                        <span className="text-xs text-muted-foreground">{nodeType.description} </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        )
-                    })}
-                </div>
-                <div>
-                    {googleFormNodes.map((nodeType) => {
-                        const Icon = nodeType.icon;
-
-                        return(
-                            <div key={nodeType.type}
-                                className="w-full justify-start h-auto py-5 px-4 rounded-none cursor-pointer border-l-2 border-transparent hover:border-l-primary"
-                                onClick={() => handleNodeSelect(nodeType)}
-                            >
-                                <div className="flex items-center overflow-hidden gap-6 w-full">
-                                    {typeof Icon === "string" ? (
-                                        <img 
-                                            src={Icon}
-                                            alt={nodeType.label}
-                                            className="size-5 object-contain rounded-sm"
-                                        />
-                                    ): (
-                                        <Icon className="size-4" />
-                                    )}
-                                    <div className="flex items-start flex-col text-left">
-                                        <span className="text-sm font-medium">{nodeType.label} </span>
-                                        <span className="text-xs text-muted-foreground">{nodeType.description} </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        )
-                    })}
-                </div>
-                <div>
-                    {stripeNodes.map((nodeType) => {
-                        const Icon = nodeType.icon;
-
-                        return(
-                            <div key={nodeType.type}
-                                className="w-full justify-start h-auto py-5 px-4 rounded-none cursor-pointer border-l-2 border-transparent hover:border-l-primary"
-                                onClick={() => handleNodeSelect(nodeType)}
-                            >
-                                <div className="flex items-center overflow-hidden gap-6 w-full">
-                                    {typeof Icon === "string" ? (
-                                        <img 
-                                            src={Icon}
-                                            alt={nodeType.label}
-                                            className="size-4 object-contain rounded-sm"
                                         />
                                     ): (
                                         <Icon className="size-4" />
