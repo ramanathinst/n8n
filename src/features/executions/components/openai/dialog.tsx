@@ -32,6 +32,9 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { useCredentialsByType } from "@/features/credentials/hooks/use-credentials";
+import { CredentialsType } from "@/generated/prisma/enums";
+import Image from "next/image";
 
 const formSchema = z.object({
     variableName: z
@@ -40,6 +43,7 @@ const formSchema = z.object({
             message:
                 "Variable name must start with a letter, underscore, or $ and contain only letters, numbers, underscores, or $",
         }),
+    credentialId: z.string(),
     model: z.string().min(1, { message: "Model is required" }),
     systemPrompt: z.string().optional(),
     userPrompt: z.string().min(1, { message: "Prompt is required" })
@@ -73,6 +77,7 @@ export const OpenAiNodeDialog = ({
         resolver: zodResolver(formSchema),
         defaultValues: {
             variableName: defaultValues.variableName || "",
+            credentialId: defaultValues.credentialId || "",
             model: defaultValues.model || "",
             systemPrompt: defaultValues.systemPrompt,
             userPrompt: defaultValues.userPrompt,
@@ -84,6 +89,7 @@ export const OpenAiNodeDialog = ({
         if (open) {
             form.reset({
                 variableName: defaultValues.variableName || "",
+                credentialId: defaultValues.credentialId || "",
                 model: defaultValues.model || "",
                 systemPrompt: defaultValues.systemPrompt,
                 userPrompt: defaultValues.userPrompt,
@@ -97,6 +103,7 @@ export const OpenAiNodeDialog = ({
         onSubmit(values)
         onOpenChange(false);
     };
+    const { data: credentials, isLoading: isCredentialsLoading } = useCredentialsByType(CredentialsType.OPENAI)
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -128,6 +135,46 @@ export const OpenAiNodeDialog = ({
                                         <br />
                                         {`{{${watchVariable}.openai.text}}`}
                                     </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="credentialId"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Credential</FormLabel>
+                                    <FormControl>
+                                        <Select
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                        >
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Select credential" />
+                                            </SelectTrigger>
+
+                                            <SelectContent>
+                                                {credentials?.map((credential) => (
+                                                    <SelectItem
+                                                        key={credential.id}
+                                                        value={credential.id}
+                                                    >
+                                                        <div className="flex items-center gap-3">
+                                                            <Image
+                                                                src={"/logos/openai.svg"}
+                                                                width={20}
+                                                                height={20}
+                                                                alt={credential.name}
+                                                            />
+                                                            <span>{credential.name}</span>
+                                                        </div>
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
