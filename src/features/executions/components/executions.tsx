@@ -1,10 +1,12 @@
 "use client";
 
 import { EmptyView, EntityContainer, EntityHeader, EntityItem, EntityList, EntityPagination, ErrorView, LoadingView } from "@/components/entity-components";
-import { Execution } from "@/generated/prisma/client";
+import { Execution, ExecutionStatus } from "@/generated/prisma/client";
 import { formatDistanceToNow } from "date-fns"
 import { useSuspenseExecutions } from "../hooks/use-executions";
 import { useExecutionsParams } from "../hooks/use-executions-params";
+import { CheckCircle2Icon, ClockIcon, Loader2Icon, XCircleIcon } from "lucide-react";
+import { useGetStatusIcon } from "../hooks/use-get-status-icon";
 
 export const ExecutionsList = () => {
     const executions = useSuspenseExecutions()
@@ -75,17 +77,45 @@ export const ExecutionsEmpty = () => {
     )
 }
 
+const formatStatus = (status: ExecutionStatus) => {
+    return status.charAt(0) + status.slice(1).toLowerCase();
+}
+
 export const ExecutionsItem = ({
     data
-}: { data: Execution }) => {
+}: {
+    data: Execution & {
+        workflow: {
+            id: string
+            name: string
+        }
+    }
+}) => {
+    const duration = data.completedAt
+        ? Math.round(
+            (new Date(data.completedAt).getTime() -
+                new Date(data.startedAt).getTime()) / 1000
+        )
+        : null
 
+    const subtitle = (
+        <>
+            {data.workflow.name} &bull; Started{" "}
+            {formatDistanceToNow(data.startedAt, { addSuffix: true })}
+            {duration !== null && <> &bull; Took {duration}s </>}
+        </>
+    )
 
     return (
         <EntityItem
-            href={`/credentials/${data.id}`}
-            title=""
-            subtitle=""
-            image=""
+            href={`/executions/${data.id}`}
+            title={formatStatus(data.status)}
+            subtitle={subtitle}
+            image={
+                <div className="size-8 flex items-center justify-center">
+                    {useGetStatusIcon(data.status)}
+                </div>
+            }
         />
     )
 }
