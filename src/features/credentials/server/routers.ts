@@ -1,6 +1,7 @@
 import { PAGINATION } from "@/config/constants";
 import { CredentialsType } from "@/generated/prisma/enums";
 import prisma from "@/lib/db";
+import { encryption } from "@/lib/encryptions";
 import {
     createTRPCRouter,
     protectedProcedure,
@@ -19,7 +20,7 @@ export const credentialsRouter = createTRPCRouter({
             data: {
                 name,
                 type,
-                value,
+                value: encryption(value),
                 userId: ctx.auth.user.id
             },
         });
@@ -55,7 +56,7 @@ export const credentialsRouter = createTRPCRouter({
                 data: {
                     name,
                     type,
-                    value
+                    value: encryption(value),
                 }
             })
         }),
