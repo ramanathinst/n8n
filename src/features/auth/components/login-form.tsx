@@ -6,12 +6,12 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -39,28 +39,41 @@ export const LoginForm = () => {
         }
     })
 
-    const onSubmit = async(values: LoginFormValues) => {
-       await authClient.signIn.email(
-        {
-        email: values.email,
-        password: values.password,
-        callbackURL: "/"
-       },
-       {
-        onSuccess: () => {
-            toast.success("Login Successfull!")
-            router.push("/")
-        },
-        onError: (ctx) => {
-            toast.error(ctx.error.message)
-        }
-       }
-       )
+    const onSubmit = async (values: LoginFormValues) => {
+        await authClient.signIn.email(
+            {
+                email: values.email,
+                password: values.password,
+                callbackURL: "/"
+            },
+            {
+                onSuccess: () => {
+                    toast.success("Login Successfull!")
+                    router.push("/")
+                },
+                onError: (ctx) => {
+                    toast.error(ctx.error.message)
+                }
+            }
+        )
+    }
+
+    const handleGithub = async() => {
+        await authClient.signIn.social({
+            provider: "github"
+        },{
+            onSuccess: () => {
+                router.push("/")
+            },
+            onError: (ctx) => {
+                toast.error(ctx.error.message)
+            }
+        })
     }
 
     const isPending = form.formState.isSubmitting;
 
-    return(
+    return (
         <div className="flex flex-col gap-6">
             <Card>
                 <CardHeader className="flex items-center flex-col">
@@ -73,77 +86,78 @@ export const LoginForm = () => {
                         <form onSubmit={form.handleSubmit(onSubmit)}>
                             <div className="grid gap-6">
                                 <div className="flex flex-col gap-4">
-                                    <Button 
+                                    <Button
+                                        onClick={handleGithub}
                                         type="button"
                                         variant="outline"
                                         disabled={isPending}
                                         className="w-full"
-                                        >
-                                            <Image src={"/logos/github.svg"} className="size-4" width={20} height={20} alt="GitHub" />
-                                            Continue to GitHub
+                                    >
+                                        <Image src={"/logos/github.svg"} className="size-4" width={20} height={20} alt="GitHub" />
+                                        Continue to GitHub
                                     </Button>
 
-                                    <Button 
+                                    <Button
                                         type="button"
                                         variant="outline"
                                         disabled={isPending}
                                         className="w-full"
-                                        >
-                                             <Image src={"/logos/google.svg"}  className="size-4" width={20} height={20} alt="Google" />
-                                            Continue to Google
+                                    >
+                                        <Image src={"/logos/google.svg"} className="size-4" width={20} height={20} alt="Google" />
+                                        Continue to Google
                                     </Button>
                                 </div>
 
                                 <div className="grid gap-6">
-                                     {/* Email */}
-                                        <FormField
-                                            control={form.control}
-                                            name="email"
-                                            render={({ field }) => (
+                                    {/* Email */}
+                                    <FormField
+                                        control={form.control}
+                                        name="email"
+                                        render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Email</FormLabel>
-                                                    <FormControl>
-                                                        <Input placeholder="you@example.com" {...field} />
-                                                    </FormControl>
+                                                <FormControl>
+                                                    <Input placeholder="you@example.com" {...field} />
+                                                </FormControl>
                                                 <FormMessage />
                                             </FormItem>
-                                            )}
-                                        />
+                                        )}
+                                    />
 
-                                        {/* Password */}
-                                        <FormField
-                                            control={form.control}
-                                            name="password"
-                                            render={({ field }) => (
+                                    {/* Password */}
+                                    <FormField
+                                        control={form.control}
+                                        name="password"
+                                        render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Password</FormLabel>
-                                                    <FormControl>
-                                                        <Input type="password" placeholder="********" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
+                                                <FormControl>
+                                                    <Input type="password" placeholder="********" {...field} />
+                                                </FormControl>
+                                                <FormMessage />
                                             </FormItem>
-                                            )}
-                                        />
+                                        )}
+                                    />
 
-                                        <Button
-                                            type="submit"
-                                            className="w-full"
-                                            disabled={isPending}
-                                        >
-                                            {isPending ? "Logging in..." : "Login"}
-                                        </Button>
+                                    <Button
+                                        type="submit"
+                                        className="w-full"
+                                        disabled={isPending}
+                                    >
+                                        {isPending ? "Logging in..." : "Login"}
+                                    </Button>
 
 
-                                              {/* Divider & Signup link */}
-                                        <div className="text-center text-sm text-muted-foreground">
-                                            Don’t have an account?{" "}
-                                            <Link
+                                    {/* Divider & Signup link */}
+                                    <div className="text-center text-sm text-muted-foreground">
+                                        Don’t have an account?{" "}
+                                        <Link
                                             href="/signup"
                                             className="text-primary font-medium hover:underline"
-                                            >
+                                        >
                                             Sign up
-                                            </Link>
-                                        </div>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </form>
