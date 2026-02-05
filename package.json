@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "ngrok:dev": "ngrok http --url=conscionable-rhett-unendeared.ngrok-free.dev 3000",
-    "build": "next build --turbopack",
+    "build": "prisma generate && next build --turbopack",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write"
